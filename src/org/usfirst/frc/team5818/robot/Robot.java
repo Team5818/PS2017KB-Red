@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
     DriveTrain DT;
     Joystick joy1;
     Joystick joy2;
+    BallDrop BD;
     public static boolean deadman;
 	SendableChooser<String> chooser = new SendableChooser<>();
 	
@@ -30,7 +31,9 @@ public class Robot extends IterativeRobot {
 	    DT = new DriveTrain();
 	    joy1 = new Joystick(1);
 	    joy2 = new Joystick(0);
+	    BD = new BallDrop();
 	}
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -85,6 +88,16 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 	    //Drive Here
 		deadman = joy1.getRawButton(1);
+		if (joy1.getRawButton(2)){
+			BD.openTop(true);
+			BD.openMiddle(true);
+			BD.openBottom(true);
+		}
+		else {
+			BD.openTop(false);
+			BD.openMiddle(false);
+			BD.openBottom(false);
+		}
 	    double inputX = joy1.getX();
 	    double inputY = joy2.getY();
 	    DT.setArcade(inputX, inputY);
