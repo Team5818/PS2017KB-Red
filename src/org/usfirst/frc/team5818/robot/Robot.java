@@ -5,6 +5,7 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,10 +20,17 @@ public class Robot extends IterativeRobot {
 	final String defaultAuto = "Default";
 	final String customAuto = "My Auto";
 	String autoSelected;
-    DriveTrain DT = new DriveTrain();
-    Joystick joy1 = new Joystick(1);
-    Joystick joy2 = new Joystick(0);
+    DriveTrain DT;
+    Joystick joy1;
+    Joystick joy2;
+    public static boolean deadman;
 	SendableChooser<String> chooser = new SendableChooser<>();
+	
+	public Robot() {
+	    DT = new DriveTrain();
+	    joy1 = new Joystick(1);
+	    joy2 = new Joystick(0);
+	}
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -76,6 +84,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 	    //Drive Here
+		deadman = joy1.getRawButton(1);
 	    double inputX = joy1.getX();
 	    double inputY = joy2.getY();
 	    DT.setArcade(inputX, inputY);

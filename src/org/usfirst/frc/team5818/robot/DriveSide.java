@@ -31,6 +31,9 @@ public class DriveSide {
     
     public void setPower(double pow) {
         //if(!goingToDestroyRobot){
+    		if(!Robot.deadman) {
+    			pow = 0;
+    		}
         motor1.set(pow);
         motor2.set(pow);
         //}
